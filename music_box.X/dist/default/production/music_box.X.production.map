@@ -1,0 +1,71 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Thu Nov 29 01:46:23 2018
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x00012a
+                   .cinit    romdata   0x000095    program   0x000004
+.config_0FFF_BUILD/DEFAULT/PRODUCTION/MUSIC_B       code   0x000fff    program   0x000002
+                   .udata      udata   0x000008       data   0x000007
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000096      
+                            0x000fff    0x000fff      
+            152 out of 517 program addresses used, program memory utilization is 29%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+             _.org_0_0072   0x000072    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_0078   0x000078    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_007C   0x00007c    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_0080   0x000080    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_0094   0x000094    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 duration   0x000014    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     init   0x000085    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     main   0x000088    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                   main02   0x000093    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                   melody   0x000033    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                play_note   0x00004e    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_note01   0x00006a    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_note02   0x00006d    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+               rst_vector   0x000000    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                    scale   0x000003    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+               delay_cntr   0x000008       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 freq_dly   0x00000b       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 note_idx   0x00000c       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     temp   0x00000d       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               rst_vector   0x000000    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                    scale   0x000003    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 duration   0x000014    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                   melody   0x000033    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                play_note   0x00004e    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_note01   0x00006a    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_note02   0x00006d    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_0072   0x000072    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_0078   0x000078    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_007C   0x00007c    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_0080   0x000080    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     init   0x000085    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     main   0x000088    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                   main02   0x000093    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+             _.org_0_0094   0x000094    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+               delay_cntr   0x000008       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 freq_dly   0x00000b       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 note_idx   0x00000c       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     temp   0x00000d       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+
+
