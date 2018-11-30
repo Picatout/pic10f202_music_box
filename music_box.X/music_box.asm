@@ -490,11 +490,11 @@ main01
     incf note_idx,F
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
 ; cours délais entre les notes
-    movlw 1
-    movwf TMR0
-    movfw TMR0
-    skpz
-    goto $-2
+;    movlw 1
+;    movwf TMR0
+;    movfw TMR0
+;    skpz
+;    goto $-2
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
     goto main01
 main03
