@@ -1,7 +1,7 @@
 ; NOM: music_box.asm
 ; DESCRIPTION: une boite à musique basée sur le PIC10F202
 ;AUTEUR: Jacqes Deschênes
-;DATE: 2013-01-15
+;DATE: 2018-11-29
 ;REF: gamme tempérée: http://davbucci.chez-alice.fr/index.php?argument=musica/scala/scala.inc
 ;REF: happy birthday: http://en.wikipedia.org/wiki/File:GoodMorningToAll.svg
 
