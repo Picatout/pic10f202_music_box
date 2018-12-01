@@ -9,17 +9,51 @@
 
     __config  _WDTE_OFF & _MCLRE_OFF
 
-;;;;;;;;;;;; constantes ;;;;;;;;;;
     radix dec
-    
-;durées notes
-WHOLE_NOTE EQU 0
-HALF_NOTE EQU 1
-QUARTER_NOTE EQU 2
-HEIGTH_NOTE EQU 3
-SIXTEENTH EQU 4
-PAUSE_BIT EQU 7
+   
+;;;;;;;;;;;; constantes ;;;;;;;;;;
+ 
+    ; nom des notes
+DO4 EQU .0
+DO4D EQU .1
+RE4B EQU .1
+RE4 EQU .2
+RE4D EQU .3
+MI4B EQU .3 
+MI4 EQU .4
+FA4 EQU .5
+FA4D EQU .6
+SOL4B EQU .6
+SOL4 EQU .7
+SOL4D EQU .8
+LA4B EQU .8 
+LA4 EQU .9
+LA4D EQU .10
+SI4B EQU .10 
+SI4  EQU .11
+DO5 EQU .12
+DO5D EQU .13
+RE5B EQU .13 
+RE5 EQU .14
+PAUSE EQU .15
 
+; durée des notes
+WHOLE EQU .0
+WHOLE_DOT EQU .1
+HALF EQU .2
+HALF_DOT EQU .3
+QUARTER EQU .4
+QUARTER_DOT EQU .5
+HEIGTH EQU .6
+HEIGTH_DOT EQU .7
+SIXTEENTH EQU .8
+SIXTEENTH_DOT EQU .9
+; modification du prhasé
+NORMAL EQU .12
+STACCATO EQU .13
+LEGATO EQU .14
+ 
+    
 ; indicateur booléen pour phase soutenue de la note
 F_SUSTAIN EQU 0 ; position du bit dans flags
  
@@ -140,29 +174,6 @@ play_note
     goto play_note_upper
     
     
-    ; nom des notes
-DO4 EQU .0
-DO4D EQU .1
-RE4B EQU .1
-RE4 EQU .2
-RE4D EQU .3
-MI4B EQU .3 
-MI4 EQU .4
-FA4 EQU .5
-FA4D EQU .6
-SOL4B EQU .6
-SOL4 EQU .7
-SOL4D EQU .8
-LA4B EQU .8 
-LA4 EQU .9
-LA4D EQU .10
-SI4B EQU .10 
-SI4  EQU .11
-DO5 EQU .12
-DO5D EQU .13
-RE5B EQU .13 
-RE5 EQU .14
-PAUSE EQU .15
 
 scale
 ; table des notes échelle tempérée
@@ -184,22 +195,6 @@ scale
     dt .106  ;ré5
     dt H'FE' ; pause
 
-; durée des notes
-WHOLE EQU .0
-WHOLE_DOT EQU .1
-HALF EQU .2
-HALF_DOT EQU .3
-QUARTER EQU .4
-QUARTER_DOT EQU .5
-HEIGTH EQU .6
-HEIGTH_DOT EQU .7
-SIXTHEENTH EQU .8
-SIXTHEENTH_DOT EQU .9
-; modification du prhasé
-NORMAL EQU .12
-STACCATO EQU .13
-LEGATO EQU .14
- 
 duration
 ; table des durées en multiple de 8 microsecondes
 ; tempo 120 noires (QUARTER_NOTE) / minutes 

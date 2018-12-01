@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name microchip_pic10mcu)(type Legacy)(uri /home/jacques/github/pic10f202_music_box/KiCAD/microchip_pic10mcu.lib)(options "")(descr ""))
+)
