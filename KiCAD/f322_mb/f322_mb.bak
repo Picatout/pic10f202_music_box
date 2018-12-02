@@ -275,4 +275,6 @@ Text Label 5400 4275 2    50   ~ 0
 Vdd
 Text Label 4675 3450 2    50   ~ 0
 Vdd
+Text Notes 4950 2700 2    79   ~ 0
+Boite à musique
 $EndSCHEMATC

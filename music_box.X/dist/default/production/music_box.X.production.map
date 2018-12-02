@@ -1,5 +1,5 @@
 MPLINK 5.08, LINKER
-Linker Map File - Created Sat Dec  1 01:34:51 2018
+Linker Map File - Created Sun Dec  2 00:51:56 2018
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -39,19 +39,19 @@ Linker Map File - Created Sat Dec  1 01:34:51 2018
               decay_upper   0x00015a    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                  duration   0x000018    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                      init   0x000100    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-                     main   0x000107    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     main   0x000106    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                    main01   0x000109    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                    main02   0x00011e    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                    main03   0x00011a    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                  ode_joie   0x00005e    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                 play_list   0x000037    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-                play_note   0x000006    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-              play_note01   0x000189    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-              play_note02   0x00018d    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-          play_note_upper   0x00016b    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                play_tone   0x000006    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_tone01   0x000189    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_tone02   0x00018d    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+          play_tone_upper   0x00016b    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
             query_timeout   0x000003    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
       query_timeout_upper   0x000120    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-               reset_list   0x000105    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+               reset_list   0x000104    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                rst_vector   0x000000    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                     scale   0x000007    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                  set_flag   0x000158    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
@@ -76,7 +76,7 @@ Linker Map File - Created Sat Dec  1 01:34:51 2018
             query_timeout   0x000003    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
              calc_sustain   0x000004    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                     decay   0x000005    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-                play_note   0x000006    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                play_tone   0x000006    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                     scale   0x000007    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                  duration   0x000018    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                 play_list   0x000037    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
@@ -85,8 +85,8 @@ Linker Map File - Created Sat Dec  1 01:34:51 2018
                beau_sapin   0x00009f    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
           claire_fontaine   0x0000d1    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                      init   0x000100    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-               reset_list   0x000105    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-                     main   0x000107    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+               reset_list   0x000104    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                     main   0x000106    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                    main01   0x000109    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                    main03   0x00011a    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                    main02   0x00011e    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
@@ -97,9 +97,9 @@ Linker Map File - Created Sat Dec  1 01:34:51 2018
               case_normal   0x00013f    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                  set_flag   0x000158    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
               decay_upper   0x00015a    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-          play_note_upper   0x00016b    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-              play_note01   0x000189    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-              play_note02   0x00018d    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+          play_tone_upper   0x00016b    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_tone01   0x000189    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+              play_tone02   0x00018d    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
              _.org_1_0193   0x000193    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
              _.org_1_019C   0x00019c    program     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
             duration_cntr   0x000008       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm

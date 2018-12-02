@@ -170,8 +170,8 @@ calc_sustain
     goto calc_sustain_upper
 decay
     goto decay_upper
-play_note
-    goto play_note_upper
+play_tone
+    goto play_tone_upper
     
     
 
@@ -456,7 +456,6 @@ init
     ; fréquence timer=250Khz
     movlw ~((1<<T0CS) | (1<<PSA) | (1<<PS1) | (1<<PS2) | (1<<NOT_GPWU))
     option
-    clrf phrase_mode
     btfsc STATUS, GPWUF
     goto main
 reset_list    
@@ -465,6 +464,7 @@ reset_list
 main
     incf play
     clrf note_idx
+    clrf phrase_mode
 main01
     movfw play
     call play_list
@@ -483,25 +483,13 @@ main01
     andlw 3
     movwf phrase_mode
     incf note_idx,F
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
-; cours délais entre les notes
-;    movlw 1
-;    movwf TMR0
-;    movfw TMR0
-;    skpz
-;    goto $-2
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
     goto main01
 main03
     movfw temp
-    call play_note
+    call play_tone
     incf note_idx, F
-   ; movlw .4*.16+.15
-   ; call play_note ; brève pause entre les notes
     goto main01
 main02
-  ;  movlw WHOLE_DOT*.16+.15
-  ;  call play_note
     sleep   ; terminé met le MCU en mode sleep pour ménager la pile.
     goto main
 
@@ -596,7 +584,7 @@ decay_upper
     bcf flags, F_SUSTAIN
     retlw 0
     
-play_note_upper
+play_tone_upper
 ; joue une note
 ; note dans W
 ; bits 0-3 index de la note dans la table 'scale', 15=pause
@@ -624,14 +612,14 @@ play_note_upper
     andwf temp+1, F
     xorwf temp+1, W
     skpz
-    goto play_note01
+    goto play_tone01
     disable_audio  ; c'est une pause
-play_note01
+play_tone01
     call calc_sustain ; initialise la variable sustain_cntr
     movfw temp+1
     call scale
     movwf freq_dly  ; délais en multiple de 4usec.
-play_note02
+play_tone02
     audio_hi
     comf freq_dly, W
     addwf TMR0
@@ -644,7 +632,7 @@ play_note02
     skpc
     retlw 0
     delay_half_cycle
-    goto play_note02
+    goto play_tone02
     
     
     end
