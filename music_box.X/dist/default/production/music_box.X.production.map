@@ -1,5 +1,5 @@
 MPLINK 5.08, LINKER
-Linker Map File - Created Sun Dec  2 00:51:56 2018
+Linker Map File - Created Sun Dec  2 15:40:59 2018
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -61,11 +61,11 @@ Linker Map File - Created Sun Dec  2 00:51:56 2018
             duration_cntr   0x000008       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                     flags   0x000011       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                  freq_dly   0x00000e       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-                 note_idx   0x000010       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
               phrase_mode   0x00000f       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                      play   0x000012       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
              sustain_cntr   0x00000b       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                      temp   0x000013       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 tone_idx   0x000010       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
 
 
 
@@ -106,7 +106,7 @@ Linker Map File - Created Sun Dec  2 00:51:56 2018
              sustain_cntr   0x00000b       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                  freq_dly   0x00000e       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
               phrase_mode   0x00000f       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
-                 note_idx   0x000010       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
+                 tone_idx   0x000010       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                     flags   0x000011       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                      play   0x000012       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm
                      temp   0x000013       data     static /home/jacques/github/pic10f202_music_box/music_box.X/music_box.asm

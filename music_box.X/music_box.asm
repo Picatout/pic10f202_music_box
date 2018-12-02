@@ -135,7 +135,7 @@ PMODE macro p
 ; instructions entête d'une mélodie
 MELODY macro nom
 nom 
-    movfw note_idx
+    movfw tone_idx
     addwf PCL,F
     endm
 
@@ -150,7 +150,7 @@ duration_cntr res 3 ; compteur pour délais durée notes
 sustain_cntr res 3 ; durée maintenue de la note
 freq_dly res 1 ; délais demi-cycle pour produire la fréquence x
 phrase_mode res 1 ; mode du phrasé {PHRASE_NORMAL,PHRASE_STACCATO,PHRASE_LEGATO} 
-note_idx res 1 ; index de la note dans la table melody
+tone_idx res 1 ; index de la note dans la table melody
 flags res 1 ; indicateurs booléens
 play res 1; quel mélodie est jouée, index dans table play_list 
 temp res 2 ; registres de travail temporaire
@@ -463,7 +463,7 @@ reset_list
     comf play
 main
     incf play
-    clrf note_idx
+    clrf tone_idx
     clrf phrase_mode
 main01
     movfw play
@@ -482,12 +482,12 @@ main01
     swapf temp,W
     andlw 3
     movwf phrase_mode
-    incf note_idx,F
+    incf tone_idx,F
     goto main01
 main03
     movfw temp
     call play_tone
-    incf note_idx, F
+    incf tone_idx, F
     goto main01
 main02
     sleep   ; terminé met le MCU en mode sleep pour ménager la pile.

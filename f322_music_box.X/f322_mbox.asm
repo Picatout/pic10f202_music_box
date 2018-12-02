@@ -13,9 +13,10 @@
 ; délais pour TMR0
 MS_DLY EQU 5
 ; indicateurs booléens dans la variable 'flags'
-F_DONE EQU 0 ; bit 0
-F_SUSTAIN EQU 1 ; bit 1
- 
+F_DONE EQU 0 ; mélodie complétée
+F_SUSTAIN EQU 1 ; note soutenue
+F_OCTAVE  EQU 2 ; octave supérieur
+  
 ; nom des notes
 DO4 EQU .0
 DO4D EQU .1
@@ -55,6 +56,8 @@ SIXTEENTH_DOT EQU .9
 NORMAL EQU .12
 STACCATO EQU .13
 LEGATO EQU .14
+; modification de l'octave 
+OCTAVE EQU .15   ; octave {0,1}
  
 ; sélection du phrasé 
 PHRASE_NORMAL EQU 0 ;  note soutenu au 3/4 de la durée
@@ -91,8 +94,11 @@ enable_env macro
     
 ; configure le PWM pour générer la note 
 ;  dont la valeur de la table scale est dans W
-set_tone macro 
+set_tone macro
     movwf PR2
+    clrc
+    btfsc flags, F_OCTAVE
+    rrf PR2,F
     clrf PWM1DCL
     clrc
     rrf PR2,W
@@ -113,7 +119,7 @@ nom
     movlw high (nom+7)
     movwf PCLATH
     movlw low (nom+7)
-    addwf note_idx,W
+    addwf tone_idx,W
     skpnc
     incf PCLATH
     movwf PCL
@@ -149,7 +155,7 @@ PMODE macro p
 duration_cntr res 2; durée de la note, résolution 1msec
 sustain_cntr res 2; durée soutenue de la note, résolution 1msec
 phrase_mode res 1 ; mode du phrasé {PHRASE_NORMAL,PHRASE_STACCATO,PHRASE_LEGATO}    
-note_idx res 1 ; index de la note dans la table melody
+tone_idx res 1 ; index de la note dans la table melody
 play res 1; quel mélodie est jouée, index dans table play_list 
 flags res 1; indicateurs booléens
 temp res 2 ; registres de travail temporaire
@@ -166,8 +172,8 @@ accH res 1 ; bits 8-15
 isr 
     movlw MS_DLY
     addwf TMR0,F
-    btfsc flags, F_DONE
-    goto isr_exit
+;    btfsc flags, F_DONE
+;    goto isr_exit
 decr_duration
     movlw 1
     subwf duration_cntr,F
@@ -235,6 +241,7 @@ duration
     
 play_list
     addwf PCL,F
+    goto korobeiniki
     goto claire_fontaine
     goto ode_joie
     goto bon_tabac
@@ -246,6 +253,54 @@ play_list
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   ajout des tables de mélodies ici
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
+
+;  Musique thème jeu Tétris
+    MELODY korobeiniki
+    ; barre 1
+    NOTE 0, OCTAVE
+    NOTE MI4,QUARTER_DOT
+    NOTE SOL4D,HEIGTH
+    NOTE SI4,QUARTER
+    NOTE SOL4,HEIGTH
+    NOTE MI4,HEIGTH
+    NOTE LA4,QUARTER_DOT
+    NOTE DO5,HEIGTH
+    NOTE 1, OCTAVE
+    NOTE MI4,QUARTER
+    NOTE 0,OCTAVE
+    NOTE RE5,HEIGTH
+    NOTE DO5,HEIGTH
+    NOTE SI4,QUARTER_DOT
+    NOTE DO5,HEIGTH
+    NOTE RE5,QUARTER
+    NOTE 1,OCTAVE
+    NOTE MI4,QUARTER
+    NOTE 0,OCTAVE
+    NOTE DO5,QUARTER
+    NOTE LA4,QUARTER
+    NOTE LA4,HALF
+    ; barre 2
+    NOTE 1,OCTAVE
+    NOTE FA4,QUARTER_DOT
+    NOTE SOL4, HEIGTH
+    NOTE LA4,QUARTER
+    NOTE SOL4,HEIGTH
+    NOTE FA4,HEIGTH
+    NOTE MI4,QUARTER_DOT
+    NOTE FA4,HEIGTH
+    NOTE MI4,QUARTER
+    NOTE 0,OCTAVE
+    NOTE RE5,HEIGTH
+    NOTE DO5,HEIGTH
+    NOTE SI4,QUARTER_DOT
+    NOTE DO5,HEIGTH
+    NOTE RE5,QUARTER
+    NOTE 1,OCTAVE
+    NOTE MI4,QUARTER
+    NOTE 0,OCTAVE
+    NOTE LA4,QUARTER
+    NOTE LA4,HALF
+    MELODY_END
     
 ; J'ai du bon tabac dans ma tabatière
     MELODY bon_tabac
@@ -501,7 +556,8 @@ reset_list
     comf play
 main
     incf play
-    clrf note_idx
+    clrf tone_idx
+    clrf flags
     clrf phrase_mode
 main01
     movfw play
@@ -516,16 +572,28 @@ main01
     xorlw 0xC0
     skpz
     goto main03
-    ;changement de phrasé
+    ;changement de phrasé ou d'octave
+    movlw 0xF0
+    andwf temp,W
+    xorlw 0xF0
+    skpz
+    goto phrase_change
+octave_change
+    bcf flags, F_OCTAVE
+    btfsc temp,0
+    bsf flags, F_OCTAVE
+    incf tone_idx,F
+    goto main01
+phrase_change    
     swapf temp,W
     andlw 3
     movwf phrase_mode
-    incf note_idx,F
+    incf tone_idx,F
     goto main01
 main03
     movfw temp
     call play_tone
-    incf note_idx, F
+    incf tone_idx, F
     goto main01
 main02
     sleep   ; terminé met le MCU en mode sleep pour ménager la pile.
@@ -547,6 +615,10 @@ case_legato ; note soutenue sur sa durée complète
     movwf sustain_cntr+1
     movfw duration_cntr
     movwf sustain_cntr
+    movlw 32
+    subwf sustain_cntr
+    skpc
+    decf sustain_cntr+1
     return
 case_staccato ; note soutenu sur la moitié de sa durée    
     clrc
