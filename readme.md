@@ -38,4 +38,10 @@ Sur cette capture d'écran de l'oscilloscope on aperçoit en bleu la forme du vo
 
 ![signaux](signaux.bmp)
 
+version sur PIC10F322
+---------------------
+
+J'ai ajouter une version de la boite à musique réalisé avec un PIC10F322 qui est plus avantageux que le PIC10F202.
+
+
 
