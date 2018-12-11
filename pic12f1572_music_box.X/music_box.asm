@@ -23,11 +23,7 @@ ENV_CLK EQU 15500 ; clock after prescale for ENV pwm
 FOSC EQU 32000000  ; CPU oscillator frequency, PLLON
 FCYCLE EQU 8000000  ; instruction cycle frequency
 CPER EQU 125 ; intruction cycle in nanoseconds
-; tone pwm
-TONE EQU PWM1PH
-TONE_RA EQU RA0 
-; enveloppe pwm 
-ENV EQU  PWM2PH
+
 ; offset pwm registers
 PWMPHL EQU 0
 PWMPHH EQU 1 
@@ -49,12 +45,29 @@ PWMOFCON EQU 15
 PWMPS EQU 4 ; prescale select
 PWMCS EQU 0 ; clock source select
  
+; tone pwm
+TONE EQU PWM1PH
+TONE_RA EQU RA0
  
+; enveloppe pwm 
+ENV EQU  PWM3PH
 ENV_PIR EQU PIR3
-ENV_INTF EQU PWM2IF
+ENV_INTF EQU PWM3IF
 ENV_PIE EQU PIE3
-ENV_INTE EQU PWM2IE 
-ENV_RA EQU RA1
+ENV_INTE EQU PWM3IE 
+ENV_RA EQU RA2
+ 
+; bicolor LEDs control 
+BILED EQU PWM2PH
+BILEDA_RA EQU RA5
+BILEDB_RA EQU RA4
+BILED_IF EQU PWM2IF 
+BILED_IE equ PWM2IF
+BILED_PIE EQU PIE3
+BILED_PIR EQU PIR3
+
+; heart beat LED
+HBEAT_LED EQU RA0
  
 ; tempered scale 4th octave
 C4 EQU 0
@@ -261,23 +274,22 @@ led_dc_inc res 1 ;
 
 	org 4
 isr
-led_ctrl_isr
-	banksel PWM3INTF
-	btfss PWM3INTF,PRIF
+led_ctrl_isr ;biled interrupt service
+	banksel BILED
+	btfss (BILED+PWMINTF),PRIF
 	goto env_isr
-	bcf PWM3INTF,PRIF
-	banksel PWM3DCL
+	bcf (BILED+PWMINTF),PRIF
 	btfss led_dc_inc,7
 	goto positive_slope
 negative_slope	
 	movlw 4
-	subwf PWM3DCL,W
+	subwf (BILED+PWMDCL),W
 	skpnc
 	goto change_dc
 	goto invert_slope
 positive_slope
 	movlw 151
-	subwf PWM3DCL,W
+	subwf (BILED+PWMDCL),W
 	skpc
 	goto change_dc
 invert_slope ; two's complement
@@ -285,11 +297,11 @@ invert_slope ; two's complement
 	incf led_dc_inc,F
 change_dc
 	movfw led_dc_inc
-	addwf PWM3DCL,F
-	bsf PWM3LDCON,LDA
-	banksel PIR3
-	bcf PIR3,PWM3IF
-env_isr	
+	addwf (BILED+PWMDCL),F
+	bsf (BILED+PWMLDCON),LDA
+	banksel BILED_PIR
+	bcf BILED_PIR,BILED_IF
+env_isr	; envelope interrupt service
 	btfsc flags,F_DONE
 	goto isr_exit
 	banksel ENV
@@ -329,24 +341,24 @@ scale
 play_list
 	clrf PCLATH
 	addwf PCL,F
-	goto o_canada
-	goto concerto_3_m1_beethoven
-	goto a_bytown
-	goto ah_que_l_hiver
-	goto go_down_moses
-	goto amazin_grace
 	goto greensleeves
-	goto complainte_phoque
-	goto god_save_the_queen
-	goto melodia
-	goto roi_dagobert
-	goto frere_jacques
 	goto ode_joy
 	goto korobeiniki
-	goto bon_tabac
-	goto joyeux_anniv
-	goto beau_sapin
 	goto claire_fontaine
+	goto melodia
+	goto go_down_moses
+	goto amazin_grace
+	goto god_save_the_queen
+	goto frere_jacques
+	goto bon_tabac
+	goto roi_dagobert
+	goto beau_sapin
+	goto a_bytown
+	goto joyeux_anniv
+	goto ah_que_l_hiver
+	goto complainte_phoque
+	goto concerto_3_m1_beethoven
+	goto o_canada
 	goto reset_list
 
 ; PWM3 and CWG are used to
@@ -362,35 +374,36 @@ config_led_control
 	banksel APFCON
 	movlw (1<<CWGASEL)|(1<<CWGBSEL)
 	movwf APFCON
-	; configure PWM3
-	banksel PWM3PH
-	clrf PWM3PHL
-	clrf PWM3PHH
-	clrf PWM3OFL
-	clrf PWM3OFH
-	bsf PWM3CLKCON,1 ; use LFINTOSC as source clock
+	; configure BILED
+	banksel BILED
+	clrf (BILED+PWMPHL)
+	clrf (BILED+PWMPHH)
+	clrf (BILED+PWMOFL)
+	clrf (BILED+PWMOFH)
+	bsf (BILED+PWMCLKCON),1 ; use LFINTOSC as source clock
 	movlw 155
-	movwf PWM3PRL
-	clrf PWM3PRH
+	movwf (BILED+PWMPRL)
+	clrf (BILED+PWMPRH)
 	movlw 77
-	movwf PWM3DCL
-	clrf PWM3DCH
-	bsf PWM3LDCON,LDA
+	movwf (BILED+PWMDCL)
+	clrf (BILED+PWMDCH)
+	bsf (BILED+PWMLDCON),LDA
 	; set interrupt on PR to modify DC
-	bcf PWM3INTF,PRIF
-	bsf PWM3INTE,PRIE
-	bsf PWM3CON,EN
-	bsf PWM3CON,OE
+	bcf (BILED+PWMINTF),PRIF
+	bsf (BILED+PWMINTE),PRIE
+	bsf (BILED+PWMCON),EN
+	bsf (BILED+PWMCON),OE
 	; configure CWG
 	banksel CWG1DBR
-	bsf CWG1CON1,2; source is PWM3
+	bsf CWG1CON1,0; source is BILED
+	bsf CWG1CON1,1
 	clrf CWG1DBR
 	clrf CWG1DBF
 	movlw (1<<G1EN)|(1<<G1OEA)|(1<<G1OEB)
 	movwf CWG1CON0
-	; enable interrupt in PIE3
-	banksel PIE3
-	bsf PIE3,PWM3IE
+	; enable interrupt in BILED_PIE
+	banksel BILED_PIE
+	bsf BILED_PIE,BILED_IE
 	return
 	
 init
@@ -412,7 +425,7 @@ init
 	clrf TRISA
 	; power LED ON
 	banksel LATA
-	bcf LATA, RA2
+	bcf LATA, RA1
 	; bicolor led show
 	call config_led_control
 	; clear TONE PH, DC, PR, OF
@@ -515,7 +528,6 @@ cmd_stroke
 	goto staff_loop
 melody_done
 	incf play,F
-	;goto main
 	call low_power
 	sleep
 	goto init
@@ -525,18 +537,18 @@ melody_done
 low_power
 	banksel INTCON
 	bcf INTCON, GIE
-	banksel PWM3CON
-	bcf PWM3CON,EN
-	bcf PWM3CON,OE
-	bcf PWM3INTE,PRIF
-	bcf PWM3INTF,PRIF
+	banksel BILED
+	bcf (BILED+PWMCON),EN
+	bcf (BILED+PWMCON),OE
+	bcf (BILED+PWMINTE),PRIF
+	bcf (BILED+PWMINTF),PRIF
 	banksel CWG1CON0
 	bcf CWG1CON0,G1OEA
 	bcf CWG1CON0,G1OEB
 	banksel LATA
-	bcf LATA,RA4
-	bcf LATA,RA5
-	bsf LATA,RA2
+	bcf LATA,BILEDA_RA
+	bcf LATA,BILEDB_RA
+	bsf LATA,HBEAT_LED
 	return
 
 ; disable any tone
